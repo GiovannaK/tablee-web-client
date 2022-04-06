@@ -1,0 +1,31 @@
+{
+  "name": "tablee-client",
+  "version": "5.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.10",
+    "@mui/material": "latest",
+    "@mui/styled-engine-sc": "latest",
+    "graphql": "^16.3.0",
+    "graphql-ws": "^5.6.4",
+    "next": "latest",
+    "next-transpile-modules": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-is": "latest",
+    "styled-components": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.23",
+    "@types/react": "latest",
+    "@types/styled-components": "latest",
+    "babel-plugin-styled-components": "latest",
+    "typescript": "latest"
+  }
+}
