@@ -1,26 +1,16 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import ProTip from '../ProTip';
-import Link from '../Link';
-import Copyright from '../Copyright';
-import { Button } from '@mui/material';
+import { PaperComponent } from '../components/stateless/PaperComponent';
+import { Layout } from '../components/stateless/Layout';
+import { TopBar } from '../components/stateless/TopBar';
 
 export default function Index() {
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Next.js v5-beta with TypeScript example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
-        <Button variant="contained" color="primary">Hey</Button>
-      </Box>
-    </Container>
+    <PaperComponent>
+      <TopBar />
+      <Layout title="Tablee - Escolha entre vários restuarantes | Reserve sua mesa">
+        <h1>Hello</h1>
+      </Layout>
+    </PaperComponent>
   );
 }
