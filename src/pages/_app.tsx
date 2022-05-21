@@ -1,18 +1,36 @@
 import * as React from 'react';
+import SwiperCore, { Navigation, Autoplay } from 'swiper';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/effect-coverflow';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import theme from '../theme';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../apollo';
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
+  SwiperCore.use([Navigation, Autoplay]);
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Component {...pageProps} />
+        <ToastContainer
+          position="bottom-left"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </ThemeProvider>
     </ApolloProvider>
   );
