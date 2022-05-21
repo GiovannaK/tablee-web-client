@@ -28,7 +28,7 @@ export const Categories = () => {
                 slidesPerGroup: 2,
               },
               928: {
-                slidesPerView: 3.5,
+                slidesPerView: 3,
                 slidesPerGroup: 3,
               },
             }}
