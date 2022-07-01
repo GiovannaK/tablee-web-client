@@ -37,7 +37,7 @@ export const Title2OnImage = styled(Typography)`
 
 export const CardTitle1 = styled(Typography)`
   color: ${(props) => props.theme.palette.primary.main};
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -46,7 +46,7 @@ export const CardTitle1 = styled(Typography)`
 
 export const CardTitle2 = styled(Typography)`
   color: ${(props) => props.theme.palette.primary.light};
-  font-size: 1rem;
+  font-size: 1.2rem;
   text-transform: uppercase;
   font-weight: 500;
   text-align: center;
@@ -84,7 +84,7 @@ export const FullWidthButton = styled(Button)`
 
 export const ErrorText = styled(Typography)`
   color: ${(props) => props.theme.palette.error.main};
-  font-size: 1.1rem;
+  font-size: 1rem;
 `
 
 export const GoogleButton = styled(Button)`
@@ -102,7 +102,7 @@ export const GoogleButton = styled(Button)`
 
 export const InputTexFieldAccess = styled(TextField)`
   width: 100%;
-  margin-bottom: ${(props) => props.theme.spacing(1)};
+  margin-top: ${(props) => props.theme.spacing(1)};
   &.MuiInputBase-input{
     border-color: ${(props) => props.theme.palette.primary.main};
   }

@@ -44,14 +44,16 @@ export const TopBar = () => {
               </Link>
             </Box>
             <Box>
-              <Button
-                variant="outlined"
-                color="secondary"
-                startIcon={<RestaurantIcon />}
-                sx={{ fontWeight: 'bold', mr: 4 }}
-              >
-                Cadastrar meu restaurante
-              </Button>
+              <Link href="registerowner">
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<RestaurantIcon />}
+                  sx={{ fontWeight: 'bold', mr: 4 }}
+                >
+                  Cadastrar meu restaurante
+                </Button>
+              </Link>
 
               <Link href="/login">
                 <Button

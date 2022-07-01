@@ -24,7 +24,7 @@ import {
 } from '../styles/global/styles';
 import Link from 'next/link';
 
-const Register = () => {
+const RegisterOwner = () => {
   return (
     <PaperComponent>
       <TopBar />
@@ -33,11 +33,10 @@ const Register = () => {
           <Hidden lgDown>
             <Grid item xs={12} sm={12} lg={6} xl={6} sx={{ maxHeight: '85vh' }}>
               <img
-                src="register_image.jpg"
+                src="undraw_cooking.svg"
                 style={{
                   width: '100%',
                   height: '100%',
-                  filter: 'brightness(0.5)',
                 }}
               />
             </Grid>
@@ -51,11 +50,13 @@ const Register = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                borderColor: 'transparent'
               }}
             >
               <CardContent sx={{ width: '90%' }}>
                 <form>
-                  <CardTitle1 variant="h1">Crie uma conta</CardTitle1>
+                  <CardTitle1 variant="h1">Tem um restaurante?</CardTitle1>
+                  <CardTitle2 variant="h1">Crie uma conta</CardTitle2>
                   <InputTexFieldAccess
                     placeholder="Digite seu Nome"
                     label="Nome"
@@ -114,4 +115,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterOwner;
