@@ -4,6 +4,7 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PersonIcon from '@mui/icons-material/Person';
 import Box from '@mui/material/Box';
 import { AppBarStyled } from './styles/styles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
 
 export const TopBar = () => {
@@ -60,6 +61,16 @@ export const TopBar = () => {
                   sx={{ fontWeight: 'bold' }}
                 >
                   Login
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button
+                  variant="text"
+                  color="info"
+                  startIcon={<AccountCircleIcon />}
+                  sx={{ fontWeight: 'bold', ml: 4 }}
+                >
+                  Criar conta
                 </Button>
               </Link>
             </Box>

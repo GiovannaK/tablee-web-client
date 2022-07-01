@@ -4,6 +4,7 @@ import {
   CardContent,
   Grid,
   Hidden,
+  TextField,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -19,10 +20,11 @@ import {
   CardTitle2,
   ErrorText,
   GoogleButton,
+  InputTexFieldAccess,
 } from '../styles/global/styles';
 import Link from 'next/link';
 
-const Login = () => {
+const Register = () => {
   return (
     <PaperComponent>
       <TopBar />
@@ -31,7 +33,7 @@ const Login = () => {
           <Hidden lgDown>
             <Grid item xs={12} sm={12} lg={6} xl={6} sx={{ maxHeight: '85vh' }}>
               <img
-                src="login_image.jpg"
+                src="register_image.jpg"
                 style={{
                   width: '100%',
                   height: '100%',
@@ -53,21 +55,53 @@ const Login = () => {
             >
               <CardContent sx={{ width: '80%' }}>
                 <form>
-                  <CardTitle1 variant="h1">Entrar com E-mail</CardTitle1>
-                  <CardTitle2>Receba um link de acesso por e-mail</CardTitle2>
-                  <InputAccess placeholder="Digite seu e-mail" required />
+                  <CardTitle1 variant="h1">Crie uma conta</CardTitle1>
+                  <InputTexFieldAccess
+                    placeholder="Digite seu Nome"
+                    label="Nome"
+                    autoComplete="off"
+                    required
+                  />
+                  <ErrorText>Nome inválido</ErrorText>
+                  <InputTexFieldAccess
+                    placeholder="Digite seu Sobrenome"
+                    label="Sobrenome"
+                    autoComplete="off"
+                    required
+                  />
+                  <ErrorText>Sobrenome inválido</ErrorText>
+                  <InputTexFieldAccess
+                    placeholder="Digite seu E-mail"
+                    label="E-mail"
+                    autoComplete="off"
+                    required
+                  />
                   <ErrorText>E-mail inválido</ErrorText>
-                  <FullWidthButton variant="contained">
-                    Enviar link
+
+                  <InputTexFieldAccess
+                    placeholder="Digite seu Número de Celular"
+                    label="Número de Celular"
+                    autoComplete="off"
+                    required
+                  />
+                  <ErrorText>Celular inválido</ErrorText>
+
+                  <InputTexFieldAccess
+                    placeholder="Digite seu número de telefone secundário (Opcional)"
+                    label="Número secundário"
+                    autoComplete="off"
+                  />
+                  <ErrorText>Telefone inválido</ErrorText>
+
+                  <FullWidthButton variant="contained" sx={{marginBottom: '1.5rem'}}>
+                    Criar conta
                   </FullWidthButton>
-                  <CardTitle1>ou</CardTitle1>
                   <GoogleButton variant="outlined" startIcon={<GoogleIcon />}>
                     Entrar com Google
                   </GoogleButton>
-                  <Toolbar />
-                  <Link href="/register">
-                    <Button color="info" sx={{ fontSize: '1rem' }}>
-                      Não tem uma conta?
+                  <Link href="/login">
+                    <Button color="info" sx={{ fontSize: '1rem', paddingTop: '1.5rem' }}>
+                      Já tem uma conta? Faça login
                     </Button>
                   </Link>
                 </form>
@@ -80,4 +114,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

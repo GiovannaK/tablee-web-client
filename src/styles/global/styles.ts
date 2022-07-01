@@ -1,4 +1,4 @@
-import { Button, InputBase, Typography } from '@mui/material';
+import { Button, InputBase, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const Title1OnImage = styled(Typography)`
@@ -55,7 +55,7 @@ export const CardTitle2 = styled(Typography)`
 `;
 
 export const InputAccess = styled(InputBase)`
-  border: 4px solid;
+  border: 2px solid;
   border-color: ${(props) => props.theme.palette.secondary.main};
   border-radius: 10px;
   width: 100%;
@@ -94,8 +94,16 @@ export const GoogleButton = styled(Button)`
   padding: ${(props) => props.theme.spacing(0.5)};
   font-weight: bold;
   border-color: #DB4437;
-  border: 4px solid;
+  border: 2px solid;
   &:hover{
-    border: 4px solid;
+    border: 2px solid;
+  }
+`
+
+export const InputTexFieldAccess = styled(TextField)`
+  width: 100%;
+  margin-bottom: ${(props) => props.theme.spacing(1)};
+  &.MuiInputBase-input{
+    border-color: ${(props) => props.theme.palette.primary.main};
   }
 `
