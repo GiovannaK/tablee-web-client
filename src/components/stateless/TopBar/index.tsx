@@ -17,7 +17,7 @@ export const TopBar = () => {
             <Box flexGrow={1}>
               <Link href="/">
                 <img
-                  src="fulllogo.png"
+                  src="/fulllogo.png"
                   style={{
                     maxWidth: 120,
                     maxHeight: 40,
@@ -34,7 +34,7 @@ export const TopBar = () => {
             <Box flexGrow={1}>
               <Link href="/">
                 <img
-                  src="fulllogo.png"
+                  src="/fulllogo.png"
                   style={{
                     maxWidth: 120,
                     cursor: 'pointer',

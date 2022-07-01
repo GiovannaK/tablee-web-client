@@ -14,7 +14,7 @@ export const RestaurantCard = () => {
     <CardActionArea
     >
       <CardStyled square>
-        <CardMediaStyled image="restaurant.png" />
+        <CardMediaStyled image="/restaurant.png" />
         <CardContent>
           <Title variant="h5">Restaurant 1</Title>
           <Grid container spacing={1} alignItems="center">

@@ -16,7 +16,7 @@ export const Banner = () => {
       mt={2}
     >
       <img
-        src="banner.png"
+        src="/banner.png"
         style={{
           maxWidth: '100%',
           position: 'relative',

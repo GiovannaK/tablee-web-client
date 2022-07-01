@@ -1,4 +1,5 @@
 import { Box, CardContent, Grid } from '@mui/material';
+import Link from 'next/link';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { enumMapper } from '../../../utils/enumMapper';
@@ -35,11 +36,13 @@ export const Categories = () => {
           >
             {RestaurantCategories.map((category) => (
               <SwiperSlide key={category.id}>
-                <CustomCard key={category.id}>
-                  <CardContent>
-                    <CategoryTitle>{category.name}</CategoryTitle>
-                  </CardContent>
-                </CustomCard>
+                <Link href={`/categories/${category.id}`}>
+                  <CustomCard key={category.id}>
+                    <CardContent>
+                      <CategoryTitle>{category.name}</CategoryTitle>
+                    </CardContent>
+                  </CustomCard>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

@@ -77,7 +77,7 @@ export const RestaurantCategories = [
   },
   {
     id: 'CHINES',
-    name: 'Chines',
+    name: 'Chinês',
   },
   {
     id: 'ESPANHOL',
