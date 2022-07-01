@@ -1,12 +1,18 @@
-import { CardContent, CardActionArea, Grid, Rating, Icon } from '@mui/material';
+import { CardContent, CardActionArea, Grid, Rating } from '@mui/material';
 import React from 'react';
-import { CardMediaStyled, CardStyled, CategoryTitle, IsOpen, SubTitle, Title } from './styles';
-// import SignalWifiOffIcon from '@mui/icons-material/SignalWifiOff';
-import { NetworkWifi } from '@mui/icons-material';
+import {
+  CardMediaStyled,
+  CardStyled,
+  CategoryTitle,
+  IsOpen,
+  SubTitle,
+  Title,
+} from './styles';
 
 export const RestaurantCard = () => {
   return (
-    <CardActionArea>
+    <CardActionArea
+    >
       <CardStyled square>
         <CardMediaStyled image="restaurant.png" />
         <CardContent>
@@ -19,7 +25,7 @@ export const RestaurantCard = () => {
               <CategoryTitle>Grill</CategoryTitle>
             </Grid>
             <Grid item xs={6}>
-              <Rating value={5} readOnly/>
+              <Rating value={5} readOnly />
             </Grid>
             <Grid item xs={6}>
               <IsOpen>Aberto</IsOpen>
