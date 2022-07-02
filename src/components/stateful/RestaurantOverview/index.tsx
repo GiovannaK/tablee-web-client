@@ -1,9 +1,11 @@
-import { Box, Grid, List, ListItem, ListItemIcon, Rating } from '@mui/material';
+import { Box, Divider, Grid, List, ListItem, ListItemIcon, Rating } from '@mui/material';
 import React from 'react';
-import { Paragraph } from './styles';
+import { Paragraph, SubtitleOverview } from './styles';
 import ChatIcon from '@mui/icons-material/Chat';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
+import { Subtitle1 } from '../../../styles/global/styles';
+import { AvaliabilityForm } from '../AvaliabilityForm';
 
 export const RestaurantOverview = () => {
   return (
@@ -42,6 +44,11 @@ export const RestaurantOverview = () => {
           </ListItem>
         </Grid>
       </Grid>
+      <Box mt={1}>
+        <Divider />
+        <SubtitleOverview>Disponibilidade</SubtitleOverview>
+        <AvaliabilityForm />
+      </Box>
     </Box>
   );
 };

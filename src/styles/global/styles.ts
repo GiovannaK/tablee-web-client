@@ -1,4 +1,4 @@
-import { Button, InputBase, TextField, Typography } from '@mui/material';
+import { Button, InputBase, InputLabel, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const Title1OnImage = styled(Typography)`
@@ -106,4 +106,18 @@ export const InputTexFieldAccess = styled(TextField)`
   &.MuiInputBase-input{
     border-color: ${(props) => props.theme.palette.primary.main};
   }
+`
+
+
+export const Subtitle1 = styled(Typography)`
+  font-weight: 900;
+  color: ${(props) => props.theme.palette.primary.light};
+  text-transform: uppercase;
+  font-size: ${(props) => props.theme.spacing(1.7)};
+`;
+
+export const InputOulinedLabel = styled(InputLabel)`
+  color: ${(props) => props.theme.palette.secondary.main};
+  font-weight: 700;
+  font-size: ${(props) => props.theme.spacing(1.2)};
 `
