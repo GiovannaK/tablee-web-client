@@ -1,7 +1,11 @@
+import { Box } from '@mui/material'
 import React from 'react'
+import { TitleInfo } from '../AdditionalInfo/styles'
 
-export const index = () => {
+export const RestaurantMenu = () => {
   return (
-    <div>index</div>
+    <Box>
+      <TitleInfo>Menu</TitleInfo>
+    </Box>
   )
 }
