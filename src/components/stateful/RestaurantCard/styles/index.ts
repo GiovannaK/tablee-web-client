@@ -29,7 +29,7 @@ export const IsOpen = styled(Typography)`
   color: green;
   font-weight: 500;
   text-transform: uppercase;
-  font-size: ${(props) => props.theme.spacing(1.2)}
+  font-size: ${(props) => props.theme.spacing(1.2)};
 `;
 
 export const IsClosed = styled(Typography)`

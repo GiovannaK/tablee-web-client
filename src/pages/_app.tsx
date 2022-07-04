@@ -1,5 +1,5 @@
 import * as React from 'react';
-import SwiperCore, { Navigation, Autoplay, Thumbs, Pagination } from 'swiper';
+import SwiperCore, { Navigation, Autoplay, Thumbs, Pagination, Grid } from 'swiper';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
@@ -8,6 +8,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
+import "swiper/css/grid";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import theme from '../theme';
@@ -16,7 +17,7 @@ import { client } from '../apollo';
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
-  SwiperCore.use([Navigation, Autoplay, Thumbs, Pagination]);
+  SwiperCore.use([Navigation, Autoplay, Thumbs, Pagination, Grid]);
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
