@@ -10,6 +10,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { AppBarComponent } from '../../components/stateless/AppBarCustom/styles';
 import { RestaurantMenu } from '../../components/stateful/RestaurantMenu';
 import { AdditionalInfo } from '../../components/stateful/AdditionalInfo';
+import { RestaurantReviews } from '../../components/stateful/RestaurantReviews';
 
 const RestaurantId = () => {
   const [selectedTab, setSelectedTab] = React.useState('1');
@@ -69,7 +70,9 @@ const RestaurantId = () => {
                 <TabPanel value="3">
                   <RestaurantMenu />
                 </TabPanel>
-                <TabPanel value="4">Reviews</TabPanel>
+                <TabPanel value="4">
+                  <RestaurantReviews />
+                </TabPanel>
               </TabContext>
             </Card>
           </Grid>
