@@ -22,7 +22,6 @@ import PeopleIcon from '@mui/icons-material/People';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorText, InputOulinedLabel } from '../../../styles/global/styles';
 import { specialDate } from './utils/specialDate';
-import { PoliciesModal } from '../../stateless/PoliciesModal';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 export const BookingForm = () => {
@@ -39,10 +38,6 @@ export const BookingForm = () => {
     external: false,
     bar: false,
   });
-
-  const [openModal, setOpenModal] = React.useState(false);
-  const handleClose = () => setOpenModal(false);
-  const handleOpen = () => setOpenModal(true);
 
   return (
     <Box>
@@ -230,17 +225,6 @@ export const BookingForm = () => {
                     )}
                   </Grid>
                 </Grid>
-                <Button
-                  sx={{
-                    marginTop: '3rem',
-                    fontSize: '1.2rem',
-                    fontWeight: 900,
-                  }}
-                  color="secondary"
-                  onClick={handleOpen}
-                >
-                  Detalhes das Políticas do restaurante
-                </Button>
                 <BookingFormButton variant="contained">
                   Fazer Reserva
                 </BookingFormButton>
@@ -249,7 +233,6 @@ export const BookingForm = () => {
           </Card>
         </CardContent>
       </Card>
-      <PoliciesModal open={openModal} handleClose={handleClose} />
     </Box>
   );
 };

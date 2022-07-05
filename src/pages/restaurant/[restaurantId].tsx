@@ -11,6 +11,7 @@ import { AppBarComponent } from '../../components/stateless/AppBarCustom/styles'
 import { RestaurantMenu } from '../../components/stateful/RestaurantMenu';
 import { AdditionalInfo } from '../../components/stateful/AdditionalInfo';
 import { RestaurantReviews } from '../../components/stateful/RestaurantReviews';
+import { RestaurantPolicy } from '../../components/stateful/RestaurantPolicy';
 
 const RestaurantId = () => {
   const [selectedTab, setSelectedTab] = React.useState('1');
@@ -54,6 +55,11 @@ const RestaurantId = () => {
                       />
                       <Tab label="Menu" value="3" sx={{ fontWeight: 900 }} />
                       <Tab label="Reviews" value="4" sx={{ fontWeight: 900 }} />
+                      <Tab
+                        label="Políticas do Restaurante"
+                        value="5"
+                        sx={{ fontWeight: 900 }}
+                      />
                     </TabList>
                   </Box>
                 </AppBarComponent>
@@ -72,6 +78,9 @@ const RestaurantId = () => {
                 </TabPanel>
                 <TabPanel value="4">
                   <RestaurantReviews />
+                </TabPanel>
+                <TabPanel value="5">
+                  <RestaurantPolicy />
                 </TabPanel>
               </TabContext>
             </Card>
