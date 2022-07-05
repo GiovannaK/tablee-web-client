@@ -99,4 +99,8 @@ export const RestaurantCategories = [
     id: 'STEAKHOUSE',
     name: 'Steakhouse',
   },
+  {
+    id: 'FRUSTOSDOMAR',
+    name: 'Frutos do Mar',
+  }
 ]

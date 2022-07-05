@@ -139,7 +139,7 @@ export const AvaliabilityForm = () => {
             )}
           </Grid>
         </Grid>
-        <AvaliabilityFormButton variant="contained">Verificar Disponibilidade</AvaliabilityFormButton>
+        <AvaliabilityFormButton variant="contained">Prosseguir com a reserva</AvaliabilityFormButton>
       </form>
     </Box>
   );
