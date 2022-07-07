@@ -23,6 +23,7 @@ export const CardInfo = styled(Card)`
 
   width: 100%;
   min-height: 90vh;
+  max-height: 90vh;
 `;
 
 export const ProfileLinks = styled(Button)<ProfileLinksProps>`
@@ -42,4 +43,6 @@ export const CardForm = styled(Card)`
   background: transparent;
   width: 100%;
   min-height: 90vh;
+  max-height: 90vh;
+  overFlow-y: auto;
 `;

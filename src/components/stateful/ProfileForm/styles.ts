@@ -36,3 +36,12 @@ export const ProfileInfoButton = styled(FullWidthButton)`
   margin-top: ${(props) => props.theme.spacing(3)};
   padding: ${(props) => props.theme.spacing(0.8)};
 `;
+
+export const CardTitleProfile = styled(Typography)`
+  color: ${(props) => props.theme.palette.secondary.main};
+  font-size: ${(props) => props.theme.spacing(1.7)};
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: ${(props) => props.theme.spacing(2)};
+`;

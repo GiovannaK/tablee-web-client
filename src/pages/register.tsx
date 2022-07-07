@@ -39,6 +39,7 @@ const Register = () => {
                   height: '100%',
                   filter: 'brightness(0.5)',
                 }}
+                alt="imagem de restaurante"
               />
             </Grid>
           </Hidden>
