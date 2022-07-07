@@ -9,18 +9,7 @@ type ProfileLinksProps = {
 export const CardInfo = styled(Card)`
   color: ${(props) => props.theme.palette.text.secondary};
   font-size: ${(props) => props.theme.spacing(1.2)};
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+  background: #000000;
   width: 100%;
   min-height: 90vh;
   max-height: 90vh;
@@ -44,5 +33,5 @@ export const CardForm = styled(Card)`
   width: 100%;
   min-height: 90vh;
   max-height: 90vh;
-  overFlow-y: auto;
+  overflow-y: auto;
 `;

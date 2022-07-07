@@ -46,7 +46,7 @@ const Profile: React.FC<ProfileProps> = () => {
                           }}
                         >
                           <Avatar
-                            sx={{ width: 150, height: 150 }}
+                            sx={{ width: 150, height: 150, cursor: 'pointer' }}
                             onClick={() => setOpenUpload(true)}
                           >
                             A
