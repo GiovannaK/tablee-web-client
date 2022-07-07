@@ -3,16 +3,21 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import MenuIcon from '@mui/icons-material/Menu';
 import { SpeedDial } from '@mui/material';
-import { SpeedDialAction } from '@mui/lab';
 import { CustomSpeedDialAction } from './styles';
+import PersonIcon from '@mui/icons-material/Person';
 
-const actions = [
-  { icon: <MenuBookIcon />, name: 'Minhas reservas' },
-  { icon: <CreditCardIcon />, name: 'Métodos de pagamento' },
-];
+type SpeedProps = {
+  setOpenUpload: (value: boolean) => void;
+};
 
-export const Speed = () => {
+
+export const Speed: React.FC<SpeedProps> = ({ setOpenUpload }) => {
   const [open, setOpen] = React.useState(false);
+  const actions = [
+    { icon: <MenuBookIcon />, name: 'Minhas reservas' },
+    { icon: <CreditCardIcon />, name: 'Métodos de pagamento' },
+    { icon: <PersonIcon onClick={() => setOpenUpload(true)}/>, name: 'Alterar foto' },
+  ];
   const handleClose = () => {
     setOpen(false);
   };

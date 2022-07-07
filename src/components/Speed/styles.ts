@@ -1,4 +1,4 @@
-import { SpeedDialAction } from '@mui/lab';
+import { SpeedDialAction } from '@mui/material';
 import { Card, CardMedia, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 

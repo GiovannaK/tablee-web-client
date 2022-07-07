@@ -43,5 +43,5 @@ export const CardTitleProfile = styled(Typography)`
   text-align: center;
   font-weight: 700;
   text-transform: uppercase;
-  padding: ${(props) => props.theme.spacing(2)};
+  padding: ${(props) => props.theme.spacing(3)};
 `;
