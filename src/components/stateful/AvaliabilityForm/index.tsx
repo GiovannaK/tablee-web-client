@@ -16,6 +16,7 @@ import {
   TextField,
 } from '@mui/material';
 import brLocale from 'date-fns/locale/pt-BR';
+import Link from 'next/link';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { ErrorText, InputOulinedLabel } from '../../../styles/global/styles';
@@ -139,7 +140,11 @@ export const AvaliabilityForm = () => {
             )}
           </Grid>
         </Grid>
-        <AvaliabilityFormButton variant="contained">Prosseguir com a reserva</AvaliabilityFormButton>
+        <Link href="/makebooking/4847474/booking">
+          <AvaliabilityFormButton variant="contained">
+            Prosseguir com a reserva
+          </AvaliabilityFormButton>
+        </Link>
       </form>
     </Box>
   );

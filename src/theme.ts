@@ -26,6 +26,10 @@ const theme = createTheme({
     success: {
       main: '#00C853',
     },
+    text: {
+      primary: '#333333',
+      secondary: '#ffffff',
+    }
   },
   typography: {
     fontFamily: 'Open Sans, "Roboto", "Helvetica", "Arial", sans-serif',
