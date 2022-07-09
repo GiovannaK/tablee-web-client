@@ -1,19 +1,31 @@
 import * as React from 'react';
-import SwiperCore, { Navigation, Autoplay, Thumbs, Pagination, Grid } from 'swiper';
+import SwiperCore, {
+  Navigation,
+  Autoplay,
+  Thumbs,
+  Pagination,
+  Grid,
+} from 'swiper';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from '@mui/material/styles';
 import type { AppProps } from 'next/app';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import 'swiper/css/pagination';
 import 'swiper/css/thumbs';
-import "swiper/css/grid";
+import 'swiper/css/grid';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import theme from '../theme';
 import { ApolloProvider } from '@apollo/client';
 import { client } from '../apollo';
+
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_CLIENT_KEY as string
+);
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
@@ -22,18 +34,20 @@ export default function MyApp(props: AppProps) {
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
-        <ToastContainer
-          position="bottom-left"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        <Elements stripe={stripePromise}>
+          <Component {...pageProps} />
+          <ToastContainer
+            position="bottom-left"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </Elements>
       </ThemeProvider>
     </ApolloProvider>
   );
