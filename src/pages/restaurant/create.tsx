@@ -11,7 +11,7 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from '../../components/stateless/Layout';
 import { PaperComponent } from '../../components/stateless/PaperComponent';
 import { TopBar } from '../../components/stateless/TopBar';
@@ -116,6 +116,26 @@ const CreateRestaurant = () => {
     setActiveStep(0);
     setCompleted({});
   };
+
+  // Hook form
+
+  const startHour = getValues('start_hour');
+  const endHour = getValues('end_hour');
+  const weekendStartHour = getValues('weekend_start_hour');
+  const weekendEndHour = getValues('weekend_end_hour');
+  const brunchStartHour = getValues('brunch_start_hour');
+  const brunchEndHour = getValues('brunch_end_hour');
+  const lunchStartHour = getValues('lunch_start_hour');
+  const lunchEndHour = getValues('lunch_end_hour');
+  const dinnerStartHour = getValues('dinner_start_hour');
+  const dinnerEndHour = getValues('dinner_end_hour');
+  const brunchStartHourWeekend = getValues('brunch_start_hour_weekend');
+  const brunchEndHourWeekend = getValues('brunch_end_hour_weekend');
+  const lunchStartHourWeekend = getValues('lunch_start_hour_weekend');
+  const lunchEndHourWeekend = getValues('lunch_end_hour_weekend');
+  const dinnerStartHourWeekend = getValues('dinner_start_hour_weekend');
+  const dinnerEndHourWeekend = getValues('dinner_end_hour_weekend');
+
   return (
     <PaperComponent>
       <TopBar />
