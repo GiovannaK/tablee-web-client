@@ -138,73 +138,29 @@ const CreateRestaurant = () => {
     <PaperComponent>
       <TopBar />
       <Layout title="Tablee | Criar restaurante">
-        <Box mt={5} mb={5}>
-          <Stepper nonLinear activeStep={activeStep}>
-            {steps.map((label, index) => (
-              <Step key={label} completed={completed[index]}>
-                <StepButton color="inherit" onClick={handleStep(index)}>
-                  {label}
-                </StepButton>
-              </Step>
-            ))}
-          </Stepper>
-          <div>
-            {allStepsCompleted() ? (
-              <React.Fragment>
-                <Typography sx={{ mt: 2, mb: 1 }}>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                  <Box sx={{ flex: '1 1 auto' }} />
-                  <Button onClick={handleReset}>Reset</Button>
-                </Box>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {activeStep === 0 && (
-                  <Grid container spacing={3} mt={1}>
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                      <Card elevation={0}>
-                        <CardContent>
-                          <CreateRestaurantForm
-                            hours={hours}
-                            setHours={setHours}
-                          />
-                        </CardContent>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                )}
-                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                  <Button
+        <Box mt={2} mb={2}>
+          <Grid container spacing={3} mt={1}>
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+              <Card elevation={0}>
+                <CardContent>
+                  <Typography
+                    variant="h6"
                     color="primary"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    sx={{ mr: 1, fontSize: '1.2rem', fontWeight: 900 }}
+                    sx={{
+                      fontSize: '1.7rem',
+                      textAlign: 'center',
+                      fontWeight: 900,
+                      paddingBottom: '1.5rem',
+                      textTransform: 'uppercase',
+                    }}
                   >
-                    Voltar
-                  </Button>
-                  <Box sx={{ flex: '1 1 auto' }} />
-                  <Button
-                    onClick={handleNext}
-                    sx={{ mr: 1, fontSize: '1.2rem', fontWeight: 900 }}
-                  >
-                    Próximo
-                  </Button>
-                  {activeStep !== steps.length &&
-                    (completed[activeStep] ? (
-                      <Typography></Typography>
-                    ) : (
-                      <Button onClick={handleComplete}>
-                        {completedSteps() === totalSteps() - 1
-                          ? 'Finalizar'
-                          : 'Completar'}
-                      </Button>
-                    ))}
-                </Box>
-              </React.Fragment>
-            )}
-          </div>
+                    Criar um restaurante
+                  </Typography>
+                  <CreateRestaurantForm hours={hours} setHours={setHours} />
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </Box>
       </Layout>
     </PaperComponent>
