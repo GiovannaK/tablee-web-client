@@ -15,16 +15,58 @@ import { PaperComponent } from '../components/stateless/PaperComponent';
 import { TopBar } from '../components/stateless/TopBar';
 import {
   CardTitle1,
-  InputAccess,
   FullWidthButton,
-  CardTitle2,
   ErrorText,
   GoogleButton,
   InputTexFieldAccess,
 } from '../styles/global/styles';
 import Link from 'next/link';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import {
+  CreateUserInput,
+  Exact,
+  useCreateUserMutation,
+} from '../../graphql/generated/schema';
+
+interface IRegisterForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  mainPhone: string;
+  secondaryPhone?: string;
+}
 
 const Register = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+
+  const [createUserMutation, { data, loading, error }] = useCreateUserMutation();
+  // const [createUser, { loading }] = useCreateUserMutation({
+  //   update(_, __) {
+  //     toast.info(`Um e-mail de ativação foi enviado`);
+  //   },
+  //   onError(err) {
+  //     toast.error('Não foi possível registrar usuário');
+  //   },
+  // });
+  const onSubmit = (
+    values:
+      any
+  ) => {
+    createUserMutation({ variables: { data: { ...values } } });
+  };
+
+  if(data){
+    toast.info(`Um e-mail de ativação foi enviado`);
+  }
+  if(error){
+    toast.error('Não foi possível registrar usuário');
+  }
+
   return (
     <PaperComponent>
       <TopBar />
@@ -55,53 +97,97 @@ const Register = () => {
               }}
             >
               <CardContent sx={{ width: '90%' }}>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <CardTitle1 variant="h1">Crie uma conta</CardTitle1>
                   <InputTexFieldAccess
                     placeholder="Digite seu Nome"
                     label="Nome"
                     autoComplete="off"
-                    required
+                    {...register('firstName', {
+                      required: 'Nome é requerido.',
+                      maxLength: 200,
+                    })}
                   />
-                  <ErrorText>Nome inválido</ErrorText>
+                  {errors.firstName && errors.firstName.message && (
+                    <ErrorText>{errors.firstName.message}</ErrorText>
+                  )}
                   <InputTexFieldAccess
                     placeholder="Digite seu Sobrenome"
                     label="Sobrenome"
                     autoComplete="off"
-                    required
+                    {...register('lastName', {
+                      required: 'último nome é requerido.',
+                      maxLength: 200,
+                    })}
                   />
-                  <ErrorText>Sobrenome inválido</ErrorText>
+                  {errors.lastName && errors.lastName.message && (
+                    <ErrorText>{errors.lastName.message}</ErrorText>
+                  )}
                   <InputTexFieldAccess
                     placeholder="Digite seu E-mail"
                     label="E-mail"
                     autoComplete="off"
-                    required
+                    {...register('email', {
+                      required: 'E-mail é requerido',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'E-mail inválido',
+                      },
+                    })}
                   />
-                  <ErrorText>E-mail inválido</ErrorText>
-
+                  {errors.email && errors.email.message && (
+                    <ErrorText>{errors.email.message}</ErrorText>
+                  )}
                   <InputTexFieldAccess
                     placeholder="Digite seu Número de Celular"
                     label="Número de Celular"
                     autoComplete="off"
-                    required
+                    {...register('mainPhone', {
+                      required: 'Número de celular é requerido.',
+                      maxLength: 11,
+                      minLength: 11,
+                    })}
                   />
-                  <ErrorText>Celular inválido</ErrorText>
-
+                  {errors.mainPhone && errors.mainPhone.message && (
+                    <ErrorText>{errors.mainPhone.message}</ErrorText>
+                  )}
                   <InputTexFieldAccess
                     placeholder="Digite seu número de telefone secundário (Opcional)"
                     label="Número secundário"
                     autoComplete="off"
+                    {...register('secondaryPhone', {
+                      maxLength: {
+                        value: 11,
+                        message:
+                          'Número de telefone deve ter até 11 dígitos incluindo DDD',
+                      },
+                      minLength: {
+                        value: 11,
+                        message:
+                          'Número de telefone deve ter pelo menos 11 dígitos incluindo DDD',
+                      },
+                    })}
                   />
-                  <ErrorText>Telefone inválido</ErrorText>
+                  {errors.secondaryPhone && errors.secondaryPhone.message && (
+                    <ErrorText>{errors.secondaryPhone.message}</ErrorText>
+                  )}
 
-                  <FullWidthButton variant="contained" sx={{marginBottom: '1.5rem'}}>
+                  <FullWidthButton
+                    variant="contained"
+                    sx={{ marginBottom: '1.5rem' }}
+                    type="submit"
+                    disabled={loading}
+                  >
                     Criar conta
                   </FullWidthButton>
                   <GoogleButton variant="outlined" startIcon={<GoogleIcon />}>
                     Entrar com Google
                   </GoogleButton>
                   <Link href="/login">
-                    <Button color="info" sx={{ fontSize: '1rem', paddingTop: '1.5rem' }}>
+                    <Button
+                      color="info"
+                      sx={{ fontSize: '1rem', paddingTop: '1.5rem' }}
+                    >
                       Já tem uma conta? Faça login
                     </Button>
                   </Link>
