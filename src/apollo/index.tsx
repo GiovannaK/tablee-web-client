@@ -12,14 +12,12 @@ const wsLink =
     ? new GraphQLWsLink(
         createClient({
           url: process.env.NEXT_PUBLIC_WEBSOCKET_URL as any,
-          connectionParams: {
-            authToken: token,
-          },
         })
       )
     : null;
 
 const linkUrl = new HttpLink({ uri: process.env.NEXT_PUBLIC_BACKEND_URL });
+console.log(linkUrl);
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('loginToken');
@@ -32,18 +30,24 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const splitLink =
-  typeof window !== 'undefined' && wsLink != null
-    ? split(({ query }) => {
-        let definition = getMainDefinition(query);
-        return (
-          definition.kind === 'OperationDefinition' &&
-          definition.operation === 'subscription'
-        );
-      }, wsLink as any)
+  typeof window !== undefined && wsLink != null
+    ? split(
+        ({ query }) => {
+          const def = getMainDefinition(query);
+          return (
+            def.kind === 'OperationDefinition' &&
+            def.operation === 'subscription'
+          );
+        },
+        wsLink,
+        linkUrl
+      )
     : linkUrl;
 
-export const client = new ApolloClient({
+const client = new ApolloClient({
   ssrMode: typeof window === 'undefined',
   link: authLink.concat(splitLink),
   cache: new InMemoryCache(),
 });
+
+export default client;

@@ -20,8 +20,8 @@ import 'swiper/css/grid';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import theme from '../theme';
-import { ApolloProvider } from '@apollo/client';
-import { client } from '../apollo';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import client from '../apollo';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_CLIENT_KEY as string
@@ -31,10 +31,10 @@ export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
   SwiperCore.use([Navigation, Autoplay, Thumbs, Pagination, Grid]);
   return (
-    <ApolloProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Elements stripe={stripePromise}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Elements stripe={stripePromise}>
+        <ApolloProvider client={client}>
           <Component {...pageProps} />
           <ToastContainer
             position="bottom-left"
@@ -47,8 +47,8 @@ export default function MyApp(props: AppProps) {
             draggable
             pauseOnHover
           />
-        </Elements>
-      </ThemeProvider>
-    </ApolloProvider>
+        </ApolloProvider>
+      </Elements>
+    </ThemeProvider>
   );
 }

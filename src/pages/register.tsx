@@ -28,7 +28,22 @@ import {
   Exact,
   useCreateUserMutation,
 } from '../../graphql/generated/schema';
+import axios from 'axios'
+import { gql, useMutation } from '@apollo/client';
 
+
+const REGISTER_USER = gql`
+  mutation CreateUser($data: CreateUserInput!) {
+    createUser(data: $data) {
+      id
+      firstName
+      lastName
+      email
+      mainPhone
+      secondaryPhone
+    }
+  }
+`
 interface IRegisterForm {
   email: string;
   firstName: string;
@@ -44,7 +59,8 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-  const [createUserMutation, { data, loading, error }] = useCreateUserMutation();
+  // const [createUserMutation, { data, loading, error }] =
+  //   useCreateUserMutation();
   // const [createUser, { loading }] = useCreateUserMutation({
   //   update(_, __) {
   //     toast.info(`Um e-mail de ativação foi enviado`);
@@ -53,19 +69,23 @@ const Register = () => {
   //     toast.error('Não foi possível registrar usuário');
   //   },
   // });
-  const onSubmit = (
-    values:
-      any
-  ) => {
-    createUserMutation({ variables: { data: { ...values } } });
-  };
 
-  if(data){
-    toast.info(`Um e-mail de ativação foi enviado`);
-  }
-  if(error){
-    toast.error('Não foi possível registrar usuário');
-  }
+  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+    update(_, __) {
+      toast.info(`Um e-mail de ativação foi enviado!`);
+    },
+    onError(err) {
+      toast.error('Não foi possível registrar usuário');
+    },
+  });
+
+
+
+  const onSubmit = (values: any) => {
+    console.log('HERE')
+    registerUser({ variables: { data: values } });
+    console.log('HEY')
+  };
 
   return (
     <PaperComponent>
