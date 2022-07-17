@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  Grid,
-  Hidden,
-  TextField,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Button, Card, CardContent, Grid, Hidden } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import React from 'react';
 import { Layout } from '../components/stateless/Layout';
@@ -28,22 +19,7 @@ import {
   Exact,
   useCreateUserMutation,
 } from '../../graphql/generated/schema';
-import axios from 'axios'
-import { gql, useMutation } from '@apollo/client';
-
-
-const REGISTER_USER = gql`
-  mutation CreateUser($data: CreateUserInput!) {
-    createUser(data: $data) {
-      id
-      firstName
-      lastName
-      email
-      mainPhone
-      secondaryPhone
-    }
-  }
-`
+import { removeEmptyValuesFromFrom } from '../utils/removeEmptyValuesFromFrom';
 interface IRegisterForm {
   email: string;
   firstName: string;
@@ -57,34 +33,22 @@ const Register = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
+  } = useForm<IRegisterForm>();
 
-  // const [createUserMutation, { data, loading, error }] =
-  //   useCreateUserMutation();
-  // const [createUser, { loading }] = useCreateUserMutation({
-  //   update(_, __) {
-  //     toast.info(`Um e-mail de ativação foi enviado`);
-  //   },
-  //   onError(err) {
-  //     toast.error('Não foi possível registrar usuário');
-  //   },
-  // });
-
-  const [registerUser, { loading }] = useMutation(REGISTER_USER, {
+  const [createUser, { loading }] = useCreateUserMutation({
     update(_, __) {
-      toast.info(`Um e-mail de ativação foi enviado!`);
+      toast.info(`Um e-mail de ativação foi enviado`);
     },
     onError(err) {
       toast.error('Não foi possível registrar usuário');
     },
   });
 
-
-
-  const onSubmit = (values: any) => {
-    console.log('HERE')
-    registerUser({ variables: { data: values } });
-    console.log('HEY')
+  const onSubmit = (values: IRegisterForm) => {
+    const ObjectWithoutEmptyProperties = removeEmptyValuesFromFrom(values);
+    createUser({
+      variables: { data: ObjectWithoutEmptyProperties as IRegisterForm },
+    });
   };
 
   return (

@@ -994,7 +994,7 @@ export type User = {
   restaurant?: Maybe<Array<Restaurant>>;
   review?: Maybe<Array<Review>>;
   role: UserRole;
-  secondaryPhone: Scalars['String'];
+  secondaryPhone?: Maybe<Scalars['String']>;
   stripeCustomerId?: Maybe<Scalars['String']>;
   updatedAt: Scalars['DateTime'];
 };
@@ -1030,7 +1030,7 @@ export type CreateUserMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string, mainPhone: string, secondaryPhone: string } };
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, firstName: string, lastName: string, email: string, mainPhone: string, secondaryPhone?: string | null } };
 
 
 export const CreateUserDocument = gql`
