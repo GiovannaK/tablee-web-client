@@ -12,11 +12,9 @@ import {
   InputTexFieldAccess,
 } from '../styles/global/styles';
 import Link from 'next/link';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import {
-  CreateUserInput,
-  Exact,
   useCreateUserMutation,
 } from '../../graphql/generated/schema';
 import { removeEmptyValuesFromFrom } from '../utils/removeEmptyValuesFromFrom';

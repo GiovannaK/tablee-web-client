@@ -8,3 +8,9 @@ mutation CreateUser($data: CreateUserInput!) {
       secondaryPhone
     }
   }
+
+mutation Signin($data: SigninInput!) {
+  signin(data: $data) {
+    loginToken
+  }
+}

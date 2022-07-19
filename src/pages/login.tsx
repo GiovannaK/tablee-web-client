@@ -5,7 +5,6 @@ import {
   Grid,
   Hidden,
   Toolbar,
-  Typography,
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import React from 'react';
@@ -19,10 +18,38 @@ import {
   CardTitle2,
   ErrorText,
   GoogleButton,
+  InputTexFieldAccess,
 } from '../styles/global/styles';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { removeEmptyValuesFromFrom } from '../utils/removeEmptyValuesFromFrom';
+import { toast } from 'react-toastify';
+import { useSigninMutation } from '../../graphql/generated/schema';
 
+interface ILoginForm {
+  email: string;
+}
 const Login = () => {
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<ILoginForm>();
+  const [signinMutation, { data, loading, error }] = useSigninMutation({
+    update(_, __) {
+      toast.info(`Um e-mail de ativação foi enviado`);
+    },
+    onError(err) {
+      toast.error('Não foi possível registrar usuário');
+    },
+  });
+
+  const onSubmit = (values: ILoginForm) => {
+    const ObjectWithoutEmptyProperties = removeEmptyValuesFromFrom(values);
+    signinMutation({
+      variables: { data: ObjectWithoutEmptyProperties as ILoginForm },
+    });
+  };
   return (
     <PaperComponent>
       <TopBar />
@@ -37,6 +64,7 @@ const Login = () => {
                   height: '100%',
                   filter: 'brightness(0.5)',
                 }}
+                alt="login image"
               />
             </Grid>
           </Hidden>
@@ -52,12 +80,29 @@ const Login = () => {
               }}
             >
               <CardContent sx={{ width: '80%' }}>
-                <form>
+                <form onSubmit={handleSubmit(onSubmit)}>
                   <CardTitle1 variant="h1">Entrar com E-mail</CardTitle1>
                   <CardTitle2>Receba um link de acesso por e-mail</CardTitle2>
-                  <InputAccess placeholder="Digite seu e-mail" required />
-                  <ErrorText>E-mail inválido</ErrorText>
-                  <FullWidthButton variant="contained">
+                  <InputTexFieldAccess
+                    placeholder="Digite seu E-mail"
+                    label="E-mail"
+                    autoComplete="off"
+                    {...register('email', {
+                      required: 'E-mail é requerido',
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: 'E-mail inválido',
+                      },
+                    })}
+                  />
+                  {errors.email && errors.email.message && (
+                    <ErrorText>{errors.email.message}</ErrorText>
+                  )}
+                  <FullWidthButton
+                    variant="contained"
+                    disabled={loading}
+                    type="submit"
+                  >
                     Enviar link
                   </FullWidthButton>
                   <CardTitle1>ou</CardTitle1>
