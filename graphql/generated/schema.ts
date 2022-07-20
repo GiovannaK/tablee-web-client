@@ -1039,6 +1039,13 @@ export type SigninMutationVariables = Exact<{
 
 export type SigninMutation = { __typename?: 'Mutation', signin: { __typename?: 'User', loginToken?: string | null } };
 
+export type ValidateMutationVariables = Exact<{
+  data: ValidateUserInput;
+}>;
+
+
+export type ValidateMutation = { __typename?: 'Mutation', validateUser: { __typename?: 'AuthType', loginToken: string } };
+
 
 export const CreateUserDocument = gql`
     mutation CreateUser($data: CreateUserInput!) {
@@ -1111,3 +1118,36 @@ export function useSigninMutation(baseOptions?: Apollo.MutationHookOptions<Signi
 export type SigninMutationHookResult = ReturnType<typeof useSigninMutation>;
 export type SigninMutationResult = Apollo.MutationResult<SigninMutation>;
 export type SigninMutationOptions = Apollo.BaseMutationOptions<SigninMutation, SigninMutationVariables>;
+export const ValidateDocument = gql`
+    mutation Validate($data: ValidateUserInput!) {
+  validateUser(data: $data) {
+    loginToken
+  }
+}
+    `;
+export type ValidateMutationFn = Apollo.MutationFunction<ValidateMutation, ValidateMutationVariables>;
+
+/**
+ * __useValidateMutation__
+ *
+ * To run a mutation, you first call `useValidateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useValidateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [validateMutation, { data, loading, error }] = useValidateMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useValidateMutation(baseOptions?: Apollo.MutationHookOptions<ValidateMutation, ValidateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ValidateMutation, ValidateMutationVariables>(ValidateDocument, options);
+      }
+export type ValidateMutationHookResult = ReturnType<typeof useValidateMutation>;
+export type ValidateMutationResult = Apollo.MutationResult<ValidateMutation>;
+export type ValidateMutationOptions = Apollo.BaseMutationOptions<ValidateMutation, ValidateMutationVariables>;

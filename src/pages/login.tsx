@@ -37,10 +37,10 @@ const Login = () => {
   } = useForm<ILoginForm>();
   const [signinMutation, { data, loading, error }] = useSigninMutation({
     update(_, __) {
-      toast.info(`Um e-mail de ativação foi enviado`);
+      toast.info(`Um link de acesso foi enviado!`);
     },
     onError(err) {
-      toast.error('Não foi possível registrar usuário');
+      toast.error('Não foi possível enviar link.');
     },
   });
 
