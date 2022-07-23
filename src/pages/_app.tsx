@@ -20,8 +20,14 @@ import 'swiper/css/grid';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import theme from '../theme';
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 import client from '../apollo';
+import { AuthProvider } from '../context/authContext';
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_CLIENT_KEY as string
@@ -33,22 +39,24 @@ export default function MyApp(props: AppProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Elements stripe={stripePromise}>
-        <ApolloProvider client={client}>
-          <Component {...pageProps} />
-          <ToastContainer
-            position="bottom-left"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
-        </ApolloProvider>
-      </Elements>
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <Elements stripe={stripePromise}>
+            <Component {...pageProps} />
+            <ToastContainer
+              position="bottom-left"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </Elements>
+        </AuthProvider>
+      </ApolloProvider>
     </ThemeProvider>
   );
 }

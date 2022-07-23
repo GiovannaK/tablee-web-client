@@ -18,5 +18,11 @@ mutation Signin($data: SigninInput!) {
 mutation Validate($data: ValidateUserInput!) {
   validateUser(data: $data) {
     loginToken
+    user {
+      firstName
+      lastName
+      email
+      role
+    }
   }
 }

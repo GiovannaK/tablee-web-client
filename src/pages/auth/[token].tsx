@@ -15,18 +15,24 @@ import { toast } from 'react-toastify';
 import { removeEmptyValuesFromFrom } from '../../utils/removeEmptyValuesFromFrom';
 import { useValidateMutation } from '../../../graphql/generated/schema';
 import { useRouter } from 'next/router';
+import { AuthContext } from '../../context/authContext';
 
 interface IValidateForm {
   loginToken: string;
 }
 
 const Auth = () => {
+  const context = React.useContext(AuthContext);
   const router = useRouter();
   const { token } = router.query as any;
 
-  const [validateMutation, { data, loading, error }] = useValidateMutation({
-    update(_, __) {
-      router.push('/profile')
+  const [validateMutation] = useValidateMutation({
+    update(_, data) {
+      context.login(
+        data.data?.validateUser.user,
+        data.data?.validateUser.loginToken
+      );
+      router.push('/profile');
     },
     onError(err) {
       toast.error('Não foi possível realizar o login.');
@@ -44,7 +50,7 @@ const Auth = () => {
       <Layout title="Tablee - Acesse sua conta">
         <Box mt={5}>
           <Grid container justifyContent={'center'}>
-            <Grid xs={12} sm={12} md={12} lg={8} xl={8}>
+            <Grid item xs={12} sm={12} md={12} lg={8} xl={8}>
               <Card sx={{ height: '80vh' }} elevation={0}>
                 <CardContent>
                   <img

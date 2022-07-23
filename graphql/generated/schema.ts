@@ -1044,7 +1044,7 @@ export type ValidateMutationVariables = Exact<{
 }>;
 
 
-export type ValidateMutation = { __typename?: 'Mutation', validateUser: { __typename?: 'AuthType', loginToken: string } };
+export type ValidateMutation = { __typename?: 'Mutation', validateUser: { __typename?: 'AuthType', loginToken: string, user: { __typename?: 'User', firstName: string, lastName: string, email: string, role: UserRole } } };
 
 
 export const CreateUserDocument = gql`
@@ -1122,6 +1122,12 @@ export const ValidateDocument = gql`
     mutation Validate($data: ValidateUserInput!) {
   validateUser(data: $data) {
     loginToken
+    user {
+      firstName
+      lastName
+      email
+      role
+    }
   }
 }
     `;

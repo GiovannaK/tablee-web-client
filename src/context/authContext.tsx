@@ -14,6 +14,20 @@ interface IToken{
   iat: number;
 }
 
+type UserData = {
+  role: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+}
+
+type State = {
+  userData: UserData;
+  token?: string;
+}
+
+type Action = {type: 'LOGIN'; payload: UserData} | {type: 'LOGOUT'};
+
 if (typeof window !== 'undefined' && localStorage.getItem('token')) {
   const decodedToken = jwtDecode<IToken>(localStorage.getItem('token') as any);
   intialState.authenticated = true;
@@ -30,11 +44,11 @@ if (typeof window !== 'undefined' && localStorage.getItem('token')) {
 const AuthContext = createContext({
   user: null,
   authenticated: false,
-  login: (userData: any) => {},
+  login: (userData: UserData, token?: string) => {},
   logout: () => {},
 });
 
-function authReducer(state: any, action: any) {
+function authReducer(state: UserData, action: Action) {
   switch (action.type) {
     case 'LOGIN':
       return {
@@ -54,10 +68,10 @@ function authReducer(state: any, action: any) {
 }
 
 function AuthProvider(props: any) {
-  const [state, dispatch] = useReducer(authReducer, intialState);
+  const [state, dispatch] = useReducer(authReducer as any, intialState as any) as any;
 
-  function login(userData: any) {
-    localStorage.setItem('token', userData.token);
+  function login(userData: UserData, token: string) {
+    localStorage.setItem('token', token);
     dispatch({
       type: 'LOGIN',
       payload: userData,

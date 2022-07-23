@@ -6,9 +6,11 @@ import Box from '@mui/material/Box';
 import { AppBarStyled } from './styles/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
+import { AuthContext } from '../../../context/authContext';
+import { Dropdown } from '../Dropdown';
 
 export const TopBar = () => {
-  const pages = ['Products', 'Pricing', 'Blog'];
+  const { user } = React.useContext(AuthContext);
   return (
     <AppBarStyled position="sticky">
       <Container maxWidth="xl">
@@ -44,37 +46,42 @@ export const TopBar = () => {
               </Link>
             </Box>
             <Box>
-              <Link href="registerowner">
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  startIcon={<RestaurantIcon />}
-                  sx={{ fontWeight: 'bold', mr: 4 }}
-                >
-                  Cadastrar meu restaurante
-                </Button>
-              </Link>
-
-              <Link href="/login">
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  startIcon={<PersonIcon />}
-                  sx={{ fontWeight: 'bold' }}
-                >
-                  Login
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button
-                  variant="text"
-                  color="info"
-                  startIcon={<AccountCircleIcon />}
-                  sx={{ fontWeight: 'bold', ml: 4 }}
-                >
-                  Criar conta
-                </Button>
-              </Link>
+              {user ? (
+                <Dropdown />
+              ) : (
+                <>
+                  <Link href="registerowner">
+                    <Button
+                      variant="outlined"
+                      color="secondary"
+                      startIcon={<RestaurantIcon />}
+                      sx={{ fontWeight: 'bold', mr: 4 }}
+                    >
+                      Cadastrar meu restaurante
+                    </Button>
+                  </Link>
+                  <Link href="/login">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      startIcon={<PersonIcon />}
+                      sx={{ fontWeight: 'bold' }}
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button
+                      variant="text"
+                      color="info"
+                      startIcon={<AccountCircleIcon />}
+                      sx={{ fontWeight: 'bold', ml: 4 }}
+                    >
+                      Criar conta
+                    </Button>
+                  </Link>
+                </>
+              )}
             </Box>
           </Hidden>
         </Toolbar>
