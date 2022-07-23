@@ -1,5 +1,8 @@
 import { ApolloClient, InMemoryCache, split, HttpLink } from '@apollo/client';
-import { getMainDefinition } from '@apollo/client/utilities';
+import {
+  getMainDefinition,
+  offsetLimitPagination,
+} from '@apollo/client/utilities';
 import { setContext } from '@apollo/client/link/context';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
@@ -47,7 +50,21 @@ const splitLink =
 const client = new ApolloClient({
   ssrMode: typeof window === 'undefined',
   link: authLink.concat(splitLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          listAllRestaurants: {
+            keyArgs: false,
+            // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+            merge: (existing = [], incoming, { args }) => {
+              return [...existing, ...incoming];
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 export default client;

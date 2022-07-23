@@ -605,7 +605,7 @@ export type Query = {
   getUsersFromRestaurant: UsersRestaurant;
   getUsersFromRole: UsersRestaurant;
   getWaitListWithBookings: WaitList;
-  listAllRestaurants: RestaurantsAndCount;
+  listAllRestaurants: Array<Restaurant>;
   listEmployeesByRestaurant: Array<User>;
   listManagersByRestaurant: Array<User>;
   tablesByRestaurant: Array<Table>;
@@ -680,7 +680,8 @@ export type QueryGetWaitListWithBookingsArgs = {
 
 
 export type QueryListAllRestaurantsArgs = {
-  relations: Array<Scalars['String']>;
+  skip: Scalars['Float'];
+  take: Scalars['Float'];
 };
 
 
@@ -786,12 +787,6 @@ export type RestaurantImage = {
   restaurant?: Maybe<Restaurant>;
   updatedAt: Scalars['DateTime'];
   url: Scalars['String'];
-};
-
-export type RestaurantsAndCount = {
-  __typename?: 'RestaurantsAndCount';
-  count: Scalars['Float'];
-  restaurants: Array<Restaurant>;
 };
 
 export type Review = {
@@ -1047,11 +1042,12 @@ export type ValidateMutationVariables = Exact<{
 export type ValidateMutation = { __typename?: 'Mutation', validateUser: { __typename?: 'AuthType', loginToken: string, user: { __typename?: 'User', firstName: string, lastName: string, email: string, role: UserRole } } };
 
 export type ListAllRestaurantsQueryVariables = Exact<{
-  relations: Array<Scalars['String']> | Scalars['String'];
+  skip: Scalars['Float'];
+  take: Scalars['Float'];
 }>;
 
 
-export type ListAllRestaurantsQuery = { __typename?: 'Query', listAllRestaurants: { __typename?: 'RestaurantsAndCount', restaurants: Array<{ __typename?: 'Restaurant', id: string, category: RestaurantCategory, isOpen: boolean, name: string, address?: { __typename?: 'Address', city: string } | null, restaurantImage?: Array<{ __typename?: 'RestaurantImage', url: string }> | null }> } };
+export type ListAllRestaurantsQuery = { __typename?: 'Query', listAllRestaurants: Array<{ __typename?: 'Restaurant', id: string, category: RestaurantCategory, isOpen: boolean, thumbUrl: string, name: string, address?: { __typename?: 'Address', city: string } | null }> };
 
 
 export const CreateUserDocument = gql`
@@ -1165,19 +1161,15 @@ export type ValidateMutationHookResult = ReturnType<typeof useValidateMutation>;
 export type ValidateMutationResult = Apollo.MutationResult<ValidateMutation>;
 export type ValidateMutationOptions = Apollo.BaseMutationOptions<ValidateMutation, ValidateMutationVariables>;
 export const ListAllRestaurantsDocument = gql`
-    query ListAllRestaurants($relations: [String!]!) {
-  listAllRestaurants(relations: $relations) {
-    restaurants {
-      id
-      category
-      isOpen
-      name
-      address {
-        city
-      }
-      restaurantImage {
-        url
-      }
+    query ListAllRestaurants($skip: Float!, $take: Float!) {
+  listAllRestaurants(skip: $skip, take: $take) {
+    id
+    category
+    isOpen
+    thumbUrl
+    name
+    address {
+      city
     }
   }
 }
@@ -1195,7 +1187,8 @@ export const ListAllRestaurantsDocument = gql`
  * @example
  * const { data, loading, error } = useListAllRestaurantsQuery({
  *   variables: {
- *      relations: // value for 'relations'
+ *      skip: // value for 'skip'
+ *      take: // value for 'take'
  *   },
  * });
  */

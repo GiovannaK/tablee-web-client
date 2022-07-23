@@ -5,6 +5,7 @@ export const CardStyled = styled(Card)`
   cursor: pointer;
   transition: 0.3s ease-in;
   background: ${(props) => props.theme.palette.background.main};
+  min-height: 370px;
 `;
 export const CardMediaStyled = styled(CardMedia)`
   height: 170px;
