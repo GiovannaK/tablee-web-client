@@ -1,0 +1,16 @@
+query ListAllRestaurants($relations: [String!]!){
+  listAllRestaurants(relations: $relations){
+      restaurants{
+        id
+        category
+        isOpen
+        name
+        address{
+          city
+        }
+        restaurantImage{
+          url
+        }
+      }
+    }
+}

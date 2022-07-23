@@ -1046,6 +1046,13 @@ export type ValidateMutationVariables = Exact<{
 
 export type ValidateMutation = { __typename?: 'Mutation', validateUser: { __typename?: 'AuthType', loginToken: string, user: { __typename?: 'User', firstName: string, lastName: string, email: string, role: UserRole } } };
 
+export type ListAllRestaurantsQueryVariables = Exact<{
+  relations: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type ListAllRestaurantsQuery = { __typename?: 'Query', listAllRestaurants: { __typename?: 'RestaurantsAndCount', restaurants: Array<{ __typename?: 'Restaurant', id: string, category: RestaurantCategory, isOpen: boolean, name: string, address?: { __typename?: 'Address', city: string } | null, restaurantImage?: Array<{ __typename?: 'RestaurantImage', url: string }> | null }> } };
+
 
 export const CreateUserDocument = gql`
     mutation CreateUser($data: CreateUserInput!) {
@@ -1157,3 +1164,49 @@ export function useValidateMutation(baseOptions?: Apollo.MutationHookOptions<Val
 export type ValidateMutationHookResult = ReturnType<typeof useValidateMutation>;
 export type ValidateMutationResult = Apollo.MutationResult<ValidateMutation>;
 export type ValidateMutationOptions = Apollo.BaseMutationOptions<ValidateMutation, ValidateMutationVariables>;
+export const ListAllRestaurantsDocument = gql`
+    query ListAllRestaurants($relations: [String!]!) {
+  listAllRestaurants(relations: $relations) {
+    restaurants {
+      id
+      category
+      isOpen
+      name
+      address {
+        city
+      }
+      restaurantImage {
+        url
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useListAllRestaurantsQuery__
+ *
+ * To run a query within a React component, call `useListAllRestaurantsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useListAllRestaurantsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useListAllRestaurantsQuery({
+ *   variables: {
+ *      relations: // value for 'relations'
+ *   },
+ * });
+ */
+export function useListAllRestaurantsQuery(baseOptions: Apollo.QueryHookOptions<ListAllRestaurantsQuery, ListAllRestaurantsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ListAllRestaurantsQuery, ListAllRestaurantsQueryVariables>(ListAllRestaurantsDocument, options);
+      }
+export function useListAllRestaurantsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ListAllRestaurantsQuery, ListAllRestaurantsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ListAllRestaurantsQuery, ListAllRestaurantsQueryVariables>(ListAllRestaurantsDocument, options);
+        }
+export type ListAllRestaurantsQueryHookResult = ReturnType<typeof useListAllRestaurantsQuery>;
+export type ListAllRestaurantsLazyQueryHookResult = ReturnType<typeof useListAllRestaurantsLazyQuery>;
+export type ListAllRestaurantsQueryResult = Apollo.QueryResult<ListAllRestaurantsQuery, ListAllRestaurantsQueryVariables>;
