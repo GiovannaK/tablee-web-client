@@ -2,9 +2,9 @@ import { AppBar, Button } from '@mui/material';
 import { styled } from '@mui/system';
 
 export const AppBarStyled = styled(AppBar)`
-  background: ${(props) => props.theme.palette.background.default};
+  background: rgba(255, 255, 255, 0.8);
   height: 7vh;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 `;
 export const LoginButton = styled(Button)`
   background: ${(props) => props.theme.palette.primary.light};
@@ -17,4 +17,3 @@ export const RegisterButton = styled(Button)`
   margin-right: ${(props) => props.theme.spacing(4)};
   font-size: ${(props) => props.theme.spacing(1.2)};
 `;
-

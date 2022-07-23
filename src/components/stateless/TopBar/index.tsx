@@ -50,7 +50,7 @@ export const TopBar = () => {
                 <Dropdown />
               ) : (
                 <>
-                  <Link href="registerowner">
+                  <Link href="/registerowner">
                     <Button
                       variant="outlined"
                       color="secondary"

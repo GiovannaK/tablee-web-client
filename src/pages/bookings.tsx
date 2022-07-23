@@ -1,5 +1,5 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Grid, Tab } from '@mui/material';
+import { Box, Container, Grid, Tab } from '@mui/material';
 import React from 'react';
 import { AppBarComponent } from '../components/stateless/AppBarCustom/styles';
 import { Layout } from '../components/stateless/Layout';
@@ -30,20 +30,28 @@ const Bookings: React.FC<BookingProps> = () => {
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <TabContext value={selectedTab}>
-              <AppBarComponent position="static">
-                <TabList
-                  onChange={handleSelectedTab}
-                  variant="scrollable"
-                  scrollButtons="auto"
-                >
-                  <CustomTab label="Todas as Reservas" all="true" value="1" />
-                  <CustomTab label="Pendente" pending="true" value="2" />
-                  <CustomTab label="Aprovada" approved="true" value="3" />
-                  <CustomTab label="Transcorrendo" progress="true" value="4" />
-                  <CustomTab label="Rejeitada" rejected="true" value="5" />
-                  <CustomTab label="Finalizada" finished="true" value="6" />
-                  <CustomTab label="Cancelada" canceled="true" value="7" />
-                </TabList>
+              <AppBarComponent
+                sx={{ position: 'fixed', width: '100%', top: '7vh' }}
+              >
+                <Container maxWidth="xl">
+                  <TabList
+                    onChange={handleSelectedTab}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                  >
+                    <CustomTab label="Todas as Reservas" all="true" value="1" />
+                    <CustomTab label="Pendente" pending="true" value="2" />
+                    <CustomTab label="Aprovada" approved="true" value="3" />
+                    <CustomTab
+                      label="Transcorrendo"
+                      progress="true"
+                      value="4"
+                    />
+                    <CustomTab label="Rejeitada" rejected="true" value="5" />
+                    <CustomTab label="Finalizada" finished="true" value="6" />
+                    <CustomTab label="Cancelada" canceled="true" value="7" />
+                  </TabList>
+                </Container>
               </AppBarComponent>
               <TabPanel value="1">
                 <UserBookingPanel />
