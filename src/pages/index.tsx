@@ -20,9 +20,6 @@ export default function Index() {
     },
   });
 
-  console.log(data?.listAllRestaurants.length);
-  console.log(data);
-
   if (error) {
     toast.error('Não foi possível carregar os restaurantes');
   }

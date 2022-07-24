@@ -8,7 +8,8 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
 import { createClient } from 'graphql-ws';
 
 const token =
-  typeof window !== 'undefined' ? localStorage.getItem('loginToken') : null;
+  typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+  console.log(token)
 
 const wsLink =
   typeof window !== 'undefined'
@@ -23,7 +24,6 @@ const linkUrl = new HttpLink({ uri: process.env.NEXT_PUBLIC_BACKEND_URL });
 console.log(linkUrl);
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('loginToken');
   return {
     headers: {
       ...headers,

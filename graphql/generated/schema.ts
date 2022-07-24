@@ -592,6 +592,7 @@ export type Query = {
   findAllReviews: Array<Review>;
   findAllReviewsByRestaurant: Array<Review>;
   findPolicyByRestaurant: CancellationPolicy;
+  getAllRestaurantMenusWithItems: Array<Menu>;
   getCurrentUser: User;
   getCurrentUserBookings: Array<Booking>;
   getFavoritesByUser: Array<Favorite>;
@@ -602,6 +603,7 @@ export type Query = {
   getRestaurantBookingsByStatus: Array<Booking>;
   getRestaurantBookingsByUser: Array<Booking>;
   getRestaurantById: Restaurant;
+  getRestaurantByIdWithAllRelations: Restaurant;
   getUsersFromRestaurant: UsersRestaurant;
   getUsersFromRole: UsersRestaurant;
   getWaitListWithBookings: WaitList;
@@ -628,6 +630,11 @@ export type QueryFindAllReviewsByRestaurantArgs = {
 
 
 export type QueryFindPolicyByRestaurantArgs = {
+  restaurantId: Scalars['String'];
+};
+
+
+export type QueryGetAllRestaurantMenusWithItemsArgs = {
   restaurantId: Scalars['String'];
 };
 
@@ -660,6 +667,12 @@ export type QueryGetRestaurantBookingsByStatusArgs = {
 
 export type QueryGetRestaurantByIdArgs = {
   id: Scalars['String'];
+};
+
+
+export type QueryGetRestaurantByIdWithAllRelationsArgs = {
+  id: Scalars['String'];
+  relations: Array<Scalars['String']>;
 };
 
 
@@ -1049,6 +1062,21 @@ export type ListAllRestaurantsQueryVariables = Exact<{
 
 export type ListAllRestaurantsQuery = { __typename?: 'Query', listAllRestaurants: Array<{ __typename?: 'Restaurant', id: string, category: RestaurantCategory, isOpen: boolean, thumbUrl: string, name: string, address?: { __typename?: 'Address', city: string } | null }> };
 
+export type GetAllRestaurantMenusWithItemsQueryVariables = Exact<{
+  restaurantId: Scalars['String'];
+}>;
+
+
+export type GetAllRestaurantMenusWithItemsQuery = { __typename?: 'Query', getAllRestaurantMenusWithItems: Array<{ __typename?: 'Menu', id: string, title: string, menuItem?: Array<{ __typename?: 'MenuItem', id: string, category: MenuItemCategoryPortuguese, name: string, description: string, url: string, price: number }> | null }> };
+
+export type GetRestaurantByIdWithAllRelationsQueryVariables = Exact<{
+  id: Scalars['String'];
+  relations: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type GetRestaurantByIdWithAllRelationsQuery = { __typename?: 'Query', getRestaurantByIdWithAllRelations: { __typename?: 'Restaurant', id: string, category: RestaurantCategory, dressCode: DressCodePortuguese, acceptedPaymentMethods: Array<PaymentTypesPortuguese>, name: string, cnpj: string, mainPhone: string, secondaryPhone?: string | null, email: string, isWifi: boolean, isParking: boolean, isOpen: boolean, start_hour: string, end_hour: string, weekend_start_hour: string, weekend_end_hour: string, lunch_start_hour: string, lunch_end_hour: string, lunch_start_hour_weekend: string, lunch_end_hour_weekend: string, brunch_end_hour: string, brunch_start_hour: string, brunch_end_hour_weekend: string, brunch_start_hour_weekend: string, dinner_end_hour: string, dinner_start_hour: string, dinner_end_hour_weekend: string, dinner_start_hour_weekend: string, capacity: number, maxGuestQuantity: number, thumbUrl: string, cancellationPolicy?: { __typename?: 'CancellationPolicy', id: string, tax: number, details: string, limitDaysToCancel: number } | null, restaurantImage?: Array<{ __typename?: 'RestaurantImage', url: string }> | null, address?: { __typename?: 'Address', id: string, state: BrazilianStates, city: string, uf: string, postalCode: string, neighborhood: string, street: string, number: number } | null } };
+
 
 export const CreateUserDocument = gql`
     mutation CreateUser($data: CreateUserInput!) {
@@ -1203,3 +1231,132 @@ export function useListAllRestaurantsLazyQuery(baseOptions?: Apollo.LazyQueryHoo
 export type ListAllRestaurantsQueryHookResult = ReturnType<typeof useListAllRestaurantsQuery>;
 export type ListAllRestaurantsLazyQueryHookResult = ReturnType<typeof useListAllRestaurantsLazyQuery>;
 export type ListAllRestaurantsQueryResult = Apollo.QueryResult<ListAllRestaurantsQuery, ListAllRestaurantsQueryVariables>;
+export const GetAllRestaurantMenusWithItemsDocument = gql`
+    query GetAllRestaurantMenusWithItems($restaurantId: String!) {
+  getAllRestaurantMenusWithItems(restaurantId: $restaurantId) {
+    id
+    title
+    menuItem {
+      id
+      category
+      name
+      description
+      url
+      price
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllRestaurantMenusWithItemsQuery__
+ *
+ * To run a query within a React component, call `useGetAllRestaurantMenusWithItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllRestaurantMenusWithItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllRestaurantMenusWithItemsQuery({
+ *   variables: {
+ *      restaurantId: // value for 'restaurantId'
+ *   },
+ * });
+ */
+export function useGetAllRestaurantMenusWithItemsQuery(baseOptions: Apollo.QueryHookOptions<GetAllRestaurantMenusWithItemsQuery, GetAllRestaurantMenusWithItemsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllRestaurantMenusWithItemsQuery, GetAllRestaurantMenusWithItemsQueryVariables>(GetAllRestaurantMenusWithItemsDocument, options);
+      }
+export function useGetAllRestaurantMenusWithItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllRestaurantMenusWithItemsQuery, GetAllRestaurantMenusWithItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllRestaurantMenusWithItemsQuery, GetAllRestaurantMenusWithItemsQueryVariables>(GetAllRestaurantMenusWithItemsDocument, options);
+        }
+export type GetAllRestaurantMenusWithItemsQueryHookResult = ReturnType<typeof useGetAllRestaurantMenusWithItemsQuery>;
+export type GetAllRestaurantMenusWithItemsLazyQueryHookResult = ReturnType<typeof useGetAllRestaurantMenusWithItemsLazyQuery>;
+export type GetAllRestaurantMenusWithItemsQueryResult = Apollo.QueryResult<GetAllRestaurantMenusWithItemsQuery, GetAllRestaurantMenusWithItemsQueryVariables>;
+export const GetRestaurantByIdWithAllRelationsDocument = gql`
+    query GetRestaurantByIdWithAllRelations($id: String!, $relations: [String!]!) {
+  getRestaurantByIdWithAllRelations(id: $id, relations: $relations) {
+    id
+    category
+    dressCode
+    acceptedPaymentMethods
+    name
+    cnpj
+    mainPhone
+    secondaryPhone
+    email
+    isWifi
+    isParking
+    isOpen
+    start_hour
+    end_hour
+    weekend_start_hour
+    weekend_end_hour
+    lunch_start_hour
+    lunch_end_hour
+    lunch_start_hour_weekend
+    lunch_end_hour_weekend
+    brunch_end_hour
+    brunch_start_hour
+    brunch_end_hour_weekend
+    brunch_start_hour_weekend
+    dinner_end_hour
+    dinner_start_hour
+    dinner_end_hour_weekend
+    dinner_start_hour_weekend
+    capacity
+    maxGuestQuantity
+    thumbUrl
+    cancellationPolicy {
+      id
+      tax
+      details
+      limitDaysToCancel
+    }
+    restaurantImage {
+      url
+    }
+    address {
+      id
+      state
+      city
+      uf
+      postalCode
+      neighborhood
+      street
+      number
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetRestaurantByIdWithAllRelationsQuery__
+ *
+ * To run a query within a React component, call `useGetRestaurantByIdWithAllRelationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetRestaurantByIdWithAllRelationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetRestaurantByIdWithAllRelationsQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *      relations: // value for 'relations'
+ *   },
+ * });
+ */
+export function useGetRestaurantByIdWithAllRelationsQuery(baseOptions: Apollo.QueryHookOptions<GetRestaurantByIdWithAllRelationsQuery, GetRestaurantByIdWithAllRelationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetRestaurantByIdWithAllRelationsQuery, GetRestaurantByIdWithAllRelationsQueryVariables>(GetRestaurantByIdWithAllRelationsDocument, options);
+      }
+export function useGetRestaurantByIdWithAllRelationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRestaurantByIdWithAllRelationsQuery, GetRestaurantByIdWithAllRelationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetRestaurantByIdWithAllRelationsQuery, GetRestaurantByIdWithAllRelationsQueryVariables>(GetRestaurantByIdWithAllRelationsDocument, options);
+        }
+export type GetRestaurantByIdWithAllRelationsQueryHookResult = ReturnType<typeof useGetRestaurantByIdWithAllRelationsQuery>;
+export type GetRestaurantByIdWithAllRelationsLazyQueryHookResult = ReturnType<typeof useGetRestaurantByIdWithAllRelationsLazyQuery>;
+export type GetRestaurantByIdWithAllRelationsQueryResult = Apollo.QueryResult<GetRestaurantByIdWithAllRelationsQuery, GetRestaurantByIdWithAllRelationsQueryVariables>;

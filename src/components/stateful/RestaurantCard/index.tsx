@@ -18,7 +18,7 @@ type RestaurantCardProps = {
 
 export const RestaurantCard = ({ restaurant }: RestaurantCardProps) => {
   return (
-    <Link href="/restaurant/38348438">
+    <Link href={`/restaurant/${restaurant.id}`}>
       <CardActionArea>
         <CardStyled square>
           <CardMediaStyled image={restaurant.thumbUrl} />

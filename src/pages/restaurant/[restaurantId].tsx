@@ -12,12 +12,49 @@ import { RestaurantMenu } from '../../components/stateful/RestaurantMenu';
 import { AdditionalInfo } from '../../components/stateful/AdditionalInfo';
 import { RestaurantReviews } from '../../components/stateful/RestaurantReviews';
 import { RestaurantPolicy } from '../../components/stateful/RestaurantPolicy';
+import { useRouter } from 'next/router';
+import {
+  useGetAllRestaurantMenusWithItemsQuery,
+  useGetRestaurantByIdWithAllRelationsQuery,
+} from '../../../graphql/generated/schema';
+import { toast } from 'react-toastify';
 
 const RestaurantId = () => {
   const [selectedTab, setSelectedTab] = React.useState('1');
   const handleSelectedTab = (event: any, newSelectedTab: string) => {
     setSelectedTab(newSelectedTab);
   };
+  const router = useRouter();
+  const { restaurantId } = router.query as any;
+
+  const { data, loading, error } = useGetRestaurantByIdWithAllRelationsQuery({
+    variables: {
+      id: restaurantId || "",
+      relations: ['address', 'restaurantImage', 'cancellationPolicy'],
+    },
+    skip: !restaurantId,
+  });
+  const {
+    data: menuData,
+    loading: menuLoading, 
+    error: menuError,
+  } = useGetAllRestaurantMenusWithItemsQuery({
+    variables: {
+      restaurantId: restaurantId || "",
+    },
+    skip: !restaurantId
+  });
+
+  if (error) {
+    toast.error('Ocorreu um erro ao carregar os dados do restaurante.');
+  }
+
+  if (menuError) {
+    toast.error('Ocorreu um erro ao carregar os dados do menu.');
+  }
+
+  console.log(data);
+  console.log(menuData);
   return (
     <PaperComponent>
       <TopBar />

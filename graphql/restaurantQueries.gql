@@ -10,3 +10,76 @@ query ListAllRestaurants($skip: Float!, $take: Float!) {
     }
   }
 }
+
+query GetAllRestaurantMenusWithItems($restaurantId: String!) {
+  getAllRestaurantMenusWithItems(restaurantId: $restaurantId) {
+    id
+    title
+    menuItem {
+      id
+      category
+      name
+      description
+      url
+      price
+    }
+  }
+}
+
+query GetRestaurantByIdWithAllRelations($id: String!, $relations: [String!]!) {
+  getRestaurantByIdWithAllRelations(
+    id: $id
+    relations: $relations
+  ) {
+    id
+    category
+    dressCode
+    acceptedPaymentMethods
+    name
+    cnpj
+    mainPhone
+    secondaryPhone
+    email
+    isWifi
+    isParking
+    isOpen
+    start_hour
+    end_hour
+    weekend_start_hour
+    weekend_end_hour
+    lunch_start_hour
+    lunch_end_hour
+    lunch_start_hour_weekend
+    lunch_end_hour_weekend
+    brunch_end_hour
+    brunch_start_hour
+    brunch_end_hour_weekend
+    brunch_start_hour_weekend
+    dinner_end_hour
+    dinner_start_hour
+    dinner_end_hour_weekend
+    dinner_start_hour_weekend
+    capacity
+    maxGuestQuantity
+    thumbUrl
+    cancellationPolicy {
+      id
+      tax
+      details
+      limitDaysToCancel
+    }
+    restaurantImage {
+      url
+    }
+    address {
+      id
+      state
+      city
+      uf
+      postalCode
+      neighborhood
+      street
+      number
+    }
+  }
+}

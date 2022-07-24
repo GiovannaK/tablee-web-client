@@ -29,7 +29,7 @@ const Auth = () => {
   const [validateMutation] = useValidateMutation({
     update(_, data) {
       context.login(
-        data.data?.validateUser.user,
+        data.data?.validateUser.user as any,
         data.data?.validateUser.loginToken
       );
       router.push('/profile');
