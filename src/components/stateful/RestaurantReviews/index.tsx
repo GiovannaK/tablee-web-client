@@ -9,10 +9,18 @@ import {
   Rating,
 } from '@mui/material';
 import React from 'react';
+import { FindReviewsByRestaurantByIdQuery } from '../../../../graphql/generated/schema';
 import { Paragraph, TitleInfo } from '../AdditionalInfo/styles';
 import { ParagraphReview } from './styles';
 
-export const RestaurantReviews = () => {
+type RestaurantReviewsProps = {
+  data: FindReviewsByRestaurantByIdQuery['findAllReviewsByRestaurant'];
+  loading: boolean;
+};
+export const RestaurantReviews = ({
+  data,
+  loading,
+}: RestaurantReviewsProps) => {
   return (
     <Box>
       <TitleInfo>Avaliações</TitleInfo>

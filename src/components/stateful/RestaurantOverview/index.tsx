@@ -1,4 +1,12 @@
-import { Box, Divider, Grid, List, ListItem, ListItemIcon, Rating } from '@mui/material';
+import {
+  Box,
+  Divider,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  Rating,
+} from '@mui/material';
 import React from 'react';
 import { Paragraph, SubtitleOverview } from './styles';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -6,8 +14,14 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import { Subtitle1 } from '../../../styles/global/styles';
 import { AvaliabilityForm } from '../AvaliabilityForm';
+import { GetRestaurantByIdWithAllRelationsQuery } from '../../../../graphql/generated/schema';
 
-export const RestaurantOverview = () => {
+type RestaurantOverviewProps = {
+  data: GetRestaurantByIdWithAllRelationsQuery['getRestaurantByIdWithAllRelations'][0];
+  loading: boolean;
+};
+
+export const RestaurantOverview = ({ data, loading }: RestaurantOverviewProps) => {
   return (
     <Box mt={1}>
       <Grid container spacing={1} sx={{ justifyContent: 'center' }}>

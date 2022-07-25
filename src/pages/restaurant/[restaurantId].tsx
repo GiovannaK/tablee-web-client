@@ -14,6 +14,7 @@ import { RestaurantReviews } from '../../components/stateful/RestaurantReviews';
 import { RestaurantPolicy } from '../../components/stateful/RestaurantPolicy';
 import { useRouter } from 'next/router';
 import {
+  useFindReviewsByRestaurantByIdQuery,
   useGetAllRestaurantMenusWithItemsQuery,
   useGetRestaurantByIdWithAllRelationsQuery,
 } from '../../../graphql/generated/schema';
@@ -29,20 +30,31 @@ const RestaurantId = () => {
 
   const { data, loading, error } = useGetRestaurantByIdWithAllRelationsQuery({
     variables: {
-      id: restaurantId || "",
+      id: restaurantId || '',
       relations: ['address', 'restaurantImage', 'cancellationPolicy'],
     },
     skip: !restaurantId,
   });
   const {
     data: menuData,
-    loading: menuLoading, 
+    loading: menuLoading,
     error: menuError,
   } = useGetAllRestaurantMenusWithItemsQuery({
     variables: {
-      restaurantId: restaurantId || "",
+      restaurantId: restaurantId || '',
     },
-    skip: !restaurantId
+    skip: !restaurantId,
+  });
+
+  const {
+    data: dataReview,
+    loading: loadingReview,
+    error: errorReview,
+  } = useFindReviewsByRestaurantByIdQuery({
+    variables: {
+      restaurantId: restaurantId || '',
+    },
+    skip: !restaurantId,
   });
 
   if (error) {
@@ -53,14 +65,19 @@ const RestaurantId = () => {
     toast.error('Ocorreu um erro ao carregar os dados do menu.');
   }
 
-  console.log(data);
-  console.log(menuData);
+  if (errorReview && dataReview?.findAllReviewsByRestaurant) {
+    toast.error('Ocorreu um erro ao carregar os dados de avaliações.');
+    console.log(errorReview);
+  }
+
+  console.log('MENU', menuData);
+
   return (
     <PaperComponent>
       <TopBar />
       <Layout title="Tablee - Escolha entre vários restuarantes | Reserve sua mesa">
         <Grid container mt={2} mb={3}>
-          <RestaurantImageSlider />
+          <RestaurantImageSlider data={data} loading={loading} />
           <Grid item xs={12} sm={12} lg={12} xl={12} sx={{ maxHeight: '85vh' }}>
             <Card
               variant="outlined"
@@ -90,7 +107,9 @@ const RestaurantId = () => {
                         value="2"
                         sx={{ fontWeight: 900 }}
                       />
-                      <Tab label="Menu" value="3" sx={{ fontWeight: 900 }} />
+                      {menuData?.getAllRestaurantMenusWithItems.length && (
+                        <Tab label="Menu" value="3" sx={{ fontWeight: 900 }} />
+                      )}
                       <Tab label="Reviews" value="4" sx={{ fontWeight: 900 }} />
                       <Tab
                         label="Políticas do Restaurante"
@@ -102,22 +121,28 @@ const RestaurantId = () => {
                 </AppBarComponent>
                 <TabPanel value="1" sx={{ marginBottom: '1rem' }}>
                   <CardContent sx={{ width: '100%' }}>
-                    <OverviewTitle>Some Restaurant name</OverviewTitle>
+                    <OverviewTitle>
+                      {data?.getRestaurantByIdWithAllRelations &&
+                        data.getRestaurantByIdWithAllRelations.name}
+                    </OverviewTitle>
                     <Divider />
-                    <RestaurantOverview />
+                    <RestaurantOverview data={data} loading={loading} />
                   </CardContent>
                 </TabPanel>
                 <TabPanel value="2">
-                  <AdditionalInfo />
+                  <AdditionalInfo data={data} loading={loading} />
                 </TabPanel>
                 <TabPanel value="3">
-                  <RestaurantMenu />
+                  <RestaurantMenu data={menuData} loading={menuLoading} />
                 </TabPanel>
                 <TabPanel value="4">
-                  <RestaurantReviews />
+                  <RestaurantReviews
+                    data={dataReview}
+                    loading={loadingReview}
+                  />
                 </TabPanel>
                 <TabPanel value="5">
-                  <RestaurantPolicy />
+                  <RestaurantPolicy data={data} loading={loading} />
                 </TabPanel>
               </TabContext>
             </Card>

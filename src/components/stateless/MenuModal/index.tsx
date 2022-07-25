@@ -5,11 +5,14 @@ import { ParagraphModal } from './styles';
 interface IMenuModal {
   open: boolean;
   handleClose: () => void;
+  description: any;
+  id: any;
 }
 
 export const MenuModal = (props: IMenuModal) => {
   return (
     <Modal
+      id={props.id}
       open={props.open}
       onClose={props.handleClose}
       aria-labelledby="modal-modal-title"
@@ -22,11 +25,7 @@ export const MenuModal = (props: IMenuModal) => {
             <Card sx={{ width: '80vw' }}>
               <CardContent>
                 <ParagraphModal>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui
-                  excepturi velit impedit perferendis vero eaque cupiditate
-                  libero molestias error. Totam dicta id recusandae dolorum eum
-                  corrupti, saepe quis vel quam quod ut aut aperiam, vero labore
-                  voluptates adipisci, fugit voluptatum.
+                  {props.description}
                 </ParagraphModal>
               </CardContent>
             </Card>

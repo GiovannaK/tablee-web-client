@@ -7,8 +7,14 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PeopleIcon from '@mui/icons-material/People';
+import { GetRestaurantByIdWithAllRelationsQuery } from '../../../../graphql/generated/schema';
 
-export const AdditionalInfo = () => {
+type AdditionalInfoProps = {
+  data: GetRestaurantByIdWithAllRelationsQuery['getRestaurantByIdWithAllRelations'];
+  loading: boolean;
+};
+
+export const AdditionalInfo = ({ data, loading }: AdditionalInfoProps) => {
   return (
     <Box>
       <TitleInfo>Informações Adicionais</TitleInfo>
@@ -17,7 +23,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <BusinessIcon color="secondary"/>
+              <BusinessIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Avenida xxxx, 6789, São Paulo, SP.</Paragraph>
           </ListItem>
@@ -25,7 +31,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <LocalParkingIcon color="secondary"/>
+              <LocalParkingIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Estacionamento Disponível</Paragraph>
           </ListItem>
@@ -33,7 +39,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <PhoneIcon color="secondary"/>
+              <PhoneIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>(11) 30386545</Paragraph>
           </ListItem>
@@ -41,7 +47,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <CreditCardIcon color="secondary"/>
+              <CreditCardIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Visa, Mastercard, AMEX, Dinheiro.</Paragraph>
           </ListItem>
@@ -49,7 +55,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <AccessTimeIcon color="secondary"/>
+              <AccessTimeIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Segunda à Sexta - 09:00 às 23:00</Paragraph>
           </ListItem>
@@ -57,7 +63,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <AccessTimeIcon color="secondary"/>
+              <AccessTimeIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Sábado e Domingo - 12:00 às 23:00</Paragraph>
           </ListItem>
@@ -65,7 +71,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <AccessTimeIcon color="secondary"/>
+              <AccessTimeIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Café da Manhã - 09:00 às 12:00</Paragraph>
           </ListItem>
@@ -73,7 +79,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <AccessTimeIcon color="secondary"/>
+              <AccessTimeIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Almoço - 12:00 às 16:00</Paragraph>
           </ListItem>
@@ -81,7 +87,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <AccessTimeIcon color="secondary"/>
+              <AccessTimeIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Jantar - 18:00 às 23:00</Paragraph>
           </ListItem>
@@ -89,7 +95,7 @@ export const AdditionalInfo = () => {
         <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
           <ListItem>
             <ListItemIcon>
-              <PeopleIcon color="secondary"/>
+              <PeopleIcon color="secondary" />
             </ListItemIcon>
             <Paragraph>Capacidade - 100 pessoas</Paragraph>
           </ListItem>

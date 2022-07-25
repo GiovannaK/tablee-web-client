@@ -4,12 +4,18 @@ import { Paragraph } from '../AdditionalInfo/styles';
 import { Paragraph2 } from '../BookingForm/styles';
 import { CardTitle } from '../RestaurantMenu/styles';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { GetRestaurantByIdWithAllRelationsQuery } from '../../../../graphql/generated/schema';
 
-export const RestaurantPolicy = () => {
+type RestaurantPolicyProps = {
+  data: GetRestaurantByIdWithAllRelationsQuery['getRestaurantByIdWithAllRelations'][0];
+  loading: boolean;
+};
+
+export const RestaurantPolicy = ({ data, loading }: RestaurantPolicyProps) => {
   return (
     <Box>
       <Card variant="outlined">
-        <CardContent sx={{maxHeight: '50vh', overflowY: 'auto'}}>
+        <CardContent sx={{ maxHeight: '50vh', overflowY: 'auto' }}>
           <CardTitle
             sx={{
               fontSize: '1.4rem',

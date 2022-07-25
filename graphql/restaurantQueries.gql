@@ -83,3 +83,19 @@ query GetRestaurantByIdWithAllRelations($id: String!, $relations: [String!]!) {
     }
   }
 }
+
+
+query findReviewsByRestaurantById($restaurantId: String!) {
+  findAllReviewsByRestaurant(restaurantId: $restaurantId){
+    reviews{
+      id
+      rating
+      comment
+      user {
+        firstName
+        lastName
+      }
+    }
+    average
+  }
+}

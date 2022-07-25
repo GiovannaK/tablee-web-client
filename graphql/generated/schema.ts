@@ -590,7 +590,7 @@ export type Query = {
   createAccountLink: StripeCreateAccountLink;
   createLoginLink: StripeCreateLoginLink;
   findAllReviews: Array<Review>;
-  findAllReviewsByRestaurant: Array<Review>;
+  findAllReviewsByRestaurant: ReviewsAverage;
   findPolicyByRestaurant: CancellationPolicy;
   getAllRestaurantMenusWithItems: Array<Menu>;
   getCurrentUser: User;
@@ -811,6 +811,12 @@ export type Review = {
   rating: Scalars['Float'];
   updatedAt: Scalars['DateTime'];
   user?: Maybe<User>;
+};
+
+export type ReviewsAverage = {
+  __typename?: 'ReviewsAverage';
+  average: Scalars['Float'];
+  reviews: Array<Review>;
 };
 
 export type SigninInput = {
@@ -1076,6 +1082,13 @@ export type GetRestaurantByIdWithAllRelationsQueryVariables = Exact<{
 
 
 export type GetRestaurantByIdWithAllRelationsQuery = { __typename?: 'Query', getRestaurantByIdWithAllRelations: { __typename?: 'Restaurant', id: string, category: RestaurantCategory, dressCode: DressCodePortuguese, acceptedPaymentMethods: Array<PaymentTypesPortuguese>, name: string, cnpj: string, mainPhone: string, secondaryPhone?: string | null, email: string, isWifi: boolean, isParking: boolean, isOpen: boolean, start_hour: string, end_hour: string, weekend_start_hour: string, weekend_end_hour: string, lunch_start_hour: string, lunch_end_hour: string, lunch_start_hour_weekend: string, lunch_end_hour_weekend: string, brunch_end_hour: string, brunch_start_hour: string, brunch_end_hour_weekend: string, brunch_start_hour_weekend: string, dinner_end_hour: string, dinner_start_hour: string, dinner_end_hour_weekend: string, dinner_start_hour_weekend: string, capacity: number, maxGuestQuantity: number, thumbUrl: string, cancellationPolicy?: { __typename?: 'CancellationPolicy', id: string, tax: number, details: string, limitDaysToCancel: number } | null, restaurantImage?: Array<{ __typename?: 'RestaurantImage', url: string }> | null, address?: { __typename?: 'Address', id: string, state: BrazilianStates, city: string, uf: string, postalCode: string, neighborhood: string, street: string, number: number } | null } };
+
+export type FindReviewsByRestaurantByIdQueryVariables = Exact<{
+  restaurantId: Scalars['String'];
+}>;
+
+
+export type FindReviewsByRestaurantByIdQuery = { __typename?: 'Query', findAllReviewsByRestaurant: { __typename?: 'ReviewsAverage', average: number, reviews: Array<{ __typename?: 'Review', id: string, rating: number, comment: string, user?: { __typename?: 'User', firstName: string, lastName: string } | null }> } };
 
 
 export const CreateUserDocument = gql`
@@ -1360,3 +1373,47 @@ export function useGetRestaurantByIdWithAllRelationsLazyQuery(baseOptions?: Apol
 export type GetRestaurantByIdWithAllRelationsQueryHookResult = ReturnType<typeof useGetRestaurantByIdWithAllRelationsQuery>;
 export type GetRestaurantByIdWithAllRelationsLazyQueryHookResult = ReturnType<typeof useGetRestaurantByIdWithAllRelationsLazyQuery>;
 export type GetRestaurantByIdWithAllRelationsQueryResult = Apollo.QueryResult<GetRestaurantByIdWithAllRelationsQuery, GetRestaurantByIdWithAllRelationsQueryVariables>;
+export const FindReviewsByRestaurantByIdDocument = gql`
+    query findReviewsByRestaurantById($restaurantId: String!) {
+  findAllReviewsByRestaurant(restaurantId: $restaurantId) {
+    reviews {
+      id
+      rating
+      comment
+      user {
+        firstName
+        lastName
+      }
+    }
+    average
+  }
+}
+    `;
+
+/**
+ * __useFindReviewsByRestaurantByIdQuery__
+ *
+ * To run a query within a React component, call `useFindReviewsByRestaurantByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindReviewsByRestaurantByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindReviewsByRestaurantByIdQuery({
+ *   variables: {
+ *      restaurantId: // value for 'restaurantId'
+ *   },
+ * });
+ */
+export function useFindReviewsByRestaurantByIdQuery(baseOptions: Apollo.QueryHookOptions<FindReviewsByRestaurantByIdQuery, FindReviewsByRestaurantByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<FindReviewsByRestaurantByIdQuery, FindReviewsByRestaurantByIdQueryVariables>(FindReviewsByRestaurantByIdDocument, options);
+      }
+export function useFindReviewsByRestaurantByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<FindReviewsByRestaurantByIdQuery, FindReviewsByRestaurantByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<FindReviewsByRestaurantByIdQuery, FindReviewsByRestaurantByIdQueryVariables>(FindReviewsByRestaurantByIdDocument, options);
+        }
+export type FindReviewsByRestaurantByIdQueryHookResult = ReturnType<typeof useFindReviewsByRestaurantByIdQuery>;
+export type FindReviewsByRestaurantByIdLazyQueryHookResult = ReturnType<typeof useFindReviewsByRestaurantByIdLazyQuery>;
+export type FindReviewsByRestaurantByIdQueryResult = Apollo.QueryResult<FindReviewsByRestaurantByIdQuery, FindReviewsByRestaurantByIdQueryVariables>;
