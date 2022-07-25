@@ -27,7 +27,7 @@ export const RestaurantMenu = ({ data, loading }: RestaurantMenuProps) => {
   const [openModal, setOpenModal] = React.useState(false);
   const handleClose = () => setOpenModal(false);
   const handleOpen = () => setOpenModal(true);
-  console.log(data)
+
   return (
     <Box>
       {data.getAllRestaurantMenusWithItems.map((menu: any) => (

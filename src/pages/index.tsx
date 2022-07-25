@@ -25,9 +25,6 @@ export default function Index() {
     toast.error('Não foi possível carregar os restaurantes');
   }
 
-  if (loading) {
-    <h1>Loading...</h1>;
-  }
   return (
     <PaperComponent>
       <TopBar />

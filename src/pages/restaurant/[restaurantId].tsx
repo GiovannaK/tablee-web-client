@@ -35,6 +35,8 @@ const RestaurantId = () => {
     },
     skip: !restaurantId,
   });
+
+  console.log('data', data);
   const {
     data: menuData,
     loading: menuLoading,
@@ -67,10 +69,7 @@ const RestaurantId = () => {
 
   if (errorReview && dataReview?.findAllReviewsByRestaurant) {
     toast.error('Ocorreu um erro ao carregar os dados de avaliações.');
-    console.log(errorReview);
   }
-
-  console.log('MENU', menuData);
 
   return (
     <PaperComponent>
