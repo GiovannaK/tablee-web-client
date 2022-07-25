@@ -125,7 +125,7 @@ const RestaurantId = () => {
                         data.getRestaurantByIdWithAllRelations.name}
                     </OverviewTitle>
                     <Divider />
-                    <RestaurantOverview data={data} loading={loading} />
+                    <RestaurantOverview data={data} loading={loading} reviewData={dataReview}/>
                   </CardContent>
                 </TabPanel>
                 <TabPanel value="2">

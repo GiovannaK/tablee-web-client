@@ -14,20 +14,21 @@ import PeopleIcon from '@mui/icons-material/People';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import { AvaliabilityForm } from '../AvaliabilityForm';
-import { GetRestaurantByIdWithAllRelationsQuery } from '../../../../graphql/generated/schema';
+import { FindReviewsByRestaurantByIdQuery, GetRestaurantByIdWithAllRelationsQuery } from '../../../../graphql/generated/schema';
 import { RestaurantCategory } from '../Categories/utils';
 import { DressCodePortuguese } from '../../../utils/dressCodeEnum';
 
 type RestaurantOverviewProps = {
   data?: GetRestaurantByIdWithAllRelationsQuery;
   loading: boolean;
+  reviewData?: FindReviewsByRestaurantByIdQuery;
 };
 
 export const RestaurantOverview = ({
   data,
   loading,
+  reviewData
 }: RestaurantOverviewProps) => {
-  console.log('DATA', data);
   return (
     <Box mt={1}>
       {!loading ? (
@@ -35,9 +36,14 @@ export const RestaurantOverview = ({
           <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
             <Grid item xs={12} sm={3} lg={3} xl={3}>
               <ListItem>
-                <Rating name="read-only" value={4} readOnly />
+                {reviewData !== undefined && reviewData?.findAllReviewsByRestaurant?.average !== 0 ? (
+                  <Rating name="read-only" value={reviewData?.findAllReviewsByRestaurant?.average} readOnly />
+
+                ) : (
+                  <Rating name="read-only" value={0} readOnly />
+                )}
                 <ListItemIcon sx={{ paddingLeft: '0.6rem' }}>
-                  <Paragraph>4.2</Paragraph>
+                  <Paragraph>{reviewData !== undefined && reviewData?.findAllReviewsByRestaurant?.average}</Paragraph>
                 </ListItemIcon>
               </ListItem>
             </Grid>
